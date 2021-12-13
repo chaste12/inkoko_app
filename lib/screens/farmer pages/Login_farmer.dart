@@ -1,7 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:inkoko_app/screens/Homepage_farmer.dart';
-import 'package:inkoko_app/screens/homepage_customer.dart.dart';
+import 'package:inkoko_app/screens/farmer%20pages/Homepage_farmer.dart';
 
 class LoginFarmer extends StatefulWidget {
   const LoginFarmer({Key? key}) : super(key: key);

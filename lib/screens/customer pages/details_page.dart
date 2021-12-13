@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/components.dart';
-import 'package:inkoko_app/screens/checkout_page.dart';
+import 'package:inkoko_app/screens/customer%20pages/checkout_page.dart';
 
 class DetailsPage extends StatefulWidget {
   final Products prod;

@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/account_model.dart';
-import 'package:inkoko_app/screens/Homepage_farmer.dart';
-import 'package:inkoko_app/screens/customer.dart';
-import 'package:inkoko_app/screens/homepage_customer.dart.dart';
-import 'package:inkoko_app/screens/login_customer.dart';
+import 'package:inkoko_app/screens/customer%20pages/homepage_customer.dart.dart';
+import 'package:inkoko_app/screens/farmer%20pages/Homepage_farmer.dart';
 import 'package:http/http.dart' as http;
 
 class LoginCustomer extends StatefulWidget {

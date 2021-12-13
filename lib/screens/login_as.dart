@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:inkoko_app/screens/Login_farmer.dart';
+import 'package:inkoko_app/screens/customer%20pages/homepage_customer.dart.dart';
+import 'package:inkoko_app/screens/customer%20pages/login_customer.dart';
 import 'package:inkoko_app/screens/sign_up.dart';
-import 'package:inkoko_app/screens/customer.dart';
-import 'package:inkoko_app/screens/homepage_customer.dart.dart';
-import 'package:inkoko_app/screens/login_customer.dart';
 
 class FirstTimePage extends StatefulWidget {
   const FirstTimePage({Key? key}) : super(key: key);

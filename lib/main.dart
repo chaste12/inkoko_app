@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inkoko_app/add_general_eggs.dart';
-import 'package:inkoko_app/screens/Homepage_farmer.dart';
+import 'package:inkoko_app/screens/farmer%20pages/Homepage_farmer.dart';
 import 'package:inkoko_app/screens/login_as.dart';
-import 'package:inkoko_app/screens/login_customer.dart';
 
 void main() {
   runApp(const MyApp());

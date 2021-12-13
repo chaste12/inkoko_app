@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/components.dart';
-import 'package:inkoko_app/screens/details_page.dart';
-import 'package:inkoko_app/screens/explore_cards.dart';
+import 'package:inkoko_app/screens/customer%20pages/details_page.dart';
+import 'package:inkoko_app/screens/customer%20pages/explore_cards.dart';
 
 class HomepageCustomer extends StatefulWidget {
   const HomepageCustomer({

@@ -2,26 +2,24 @@ import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/components.dart';
-import 'package:inkoko_app/screens/categories.dart';
-import 'package:inkoko_app/screens/customer.dart';
-import 'package:inkoko_app/screens/details_page.dart';
-import 'package:inkoko_app/screens/explore_cards.dart';
-import 'package:inkoko_app/screens/profile_page.dart';
+import 'package:inkoko_app/screens/farmer%20pages/orders_list.dart';
+import 'package:inkoko_app/screens/farmer%20pages/profile_page_farmer.dart';
+import 'package:inkoko_app/screens/farmer%20pages/mainpage_farmer.dart';
 
-class CustomerPages extends StatefulWidget {
-  const CustomerPages({Key? key}) : super(key: key);
+class FarmerPages extends StatefulWidget {
+  const FarmerPages({Key? key}) : super(key: key);
 
   @override
-  _CustomerPagesState createState() => _CustomerPagesState();
+  State<FarmerPages> createState() => _FarmerPagesState();
 }
 
-class _CustomerPagesState extends State<CustomerPages> {
+class _FarmerPagesState extends State<FarmerPages> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    HomepageCustomer(),
-    CategoriesPage(),
-    ProfilePage()
+    HomepageFarmer(),
+    OrderList(),
+    ProfileFarmer()
   ];
 
   void _onItemTapped(int index) {
@@ -33,7 +31,6 @@ class _CustomerPagesState extends State<CustomerPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,

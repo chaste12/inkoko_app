@@ -7,8 +7,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:inkoko_app/components/account_model.dart';
-import 'package:inkoko_app/screens/login_customer.dart';
 import 'package:http/http.dart' as http;
+import 'package:inkoko_app/screens/customer%20pages/login_customer.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);

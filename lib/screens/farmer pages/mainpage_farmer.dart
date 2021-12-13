@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inkoko_app/add_general_eggs.dart';
 import 'package:inkoko_app/components/components.dart';
-import 'package:inkoko_app/screens/details_page_farmer.dart';
+import 'package:inkoko_app/screens/farmer%20pages/add_general_eggs.dart';
+import 'package:inkoko_app/screens/farmer%20pages/details_page_farmer.dart';
 
 class HomepageFarmer extends StatefulWidget {
   const HomepageFarmer({Key? key}) : super(key: key);
@@ -37,36 +37,44 @@ class _HomepageFarmerState extends State<HomepageFarmer> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 2.5,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 120,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/fried-egg.png"),
-                                          fit: BoxFit.cover),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => GeneralEggs()));
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 2.5,
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                "assets/images/fried-egg.png"),
+                                            fit: BoxFit.contain),
+                                      ),
                                     ),
-                                  ),
-                                  Text("Regular Eggs",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                      )),
-                                ],
+                                    Text("Regular Eggs",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        )),
+                                  ],
+                                ),
                               ),
                             ),
                             Divider(height: 70),
@@ -89,7 +97,7 @@ class _HomepageFarmerState extends State<HomepageFarmer> {
                                       image: DecorationImage(
                                           image: AssetImage(
                                               "assets/images/chicken.png"),
-                                          fit: BoxFit.cover),
+                                          fit: BoxFit.contain),
                                     ),
                                   ),
                                   Text("Filitilized Eggs",

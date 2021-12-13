@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:inkoko_app/screens/customer.dart';
-import 'package:inkoko_app/screens/homepage_customer.dart.dart';
+import 'package:inkoko_app/screens/customer%20pages/customer.dart';
 
 class OrderComplete extends StatelessWidget {
   const OrderComplete({Key? key}) : super(key: key);
