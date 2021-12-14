@@ -7,6 +7,7 @@ import 'package:inkoko_app/components/account_model.dart';
 import 'package:inkoko_app/screens/customer%20pages/homepage_customer.dart.dart';
 import 'package:inkoko_app/screens/farmer%20pages/Homepage_farmer.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginCustomer extends StatefulWidget {
   const LoginCustomer({Key? key}) : super(key: key);
@@ -44,9 +45,13 @@ class _LoginCustomerState extends State<LoginCustomer> {
           if (user["user"]["role"] == "farmer") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => FarmerPages()));
+            SharedPreferences pref = await SharedPreferences.getInstance();
+            await pref.setString("token", user["token"]);
           } else if (user["user"]["role"] == "customer") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => CustomerPages()));
+            SharedPreferences pref = await SharedPreferences.getInstance();
+            await pref.setString("token", user["token"]);
           }
         } else {
           setState(() {

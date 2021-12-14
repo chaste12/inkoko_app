@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/account_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:inkoko_app/screens/farmer%20pages/Homepage_farmer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GeneralEggs extends StatefulWidget {
   const GeneralEggs({Key? key}) : super(key: key);
@@ -14,12 +15,26 @@ class GeneralEggs extends StatefulWidget {
 }
 
 class _GeneralEggsState extends State<GeneralEggs> {
+  String token = '';
+
+  @override
+  void initState() {
+    getCredentials();
+  }
+
+  void getCredentials() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      token = pref.getString("token")!;
+    });
+  }
+
   var visible = false;
   var _fEggsDetails = const FiliteredEggsModel(
       title: "", quantity: "", price: "", mQuantity: "", description: "");
   final _form = GlobalKey<FormState>();
   // ignore: non_constant_identifier_names
-  Future<void> filiteredEggsButton_handler() async {
+  Future<void> filiteredEggsButton_handler(token) async {
     _form.currentState!.validate();
     _form.currentState!.save();
 
@@ -32,12 +47,11 @@ class _GeneralEggsState extends State<GeneralEggs> {
         _fEggsDetails.mQuantity != '' &&
         _fEggsDetails.description != '') {
       var response = await http.post(
-          Uri.https('inkoko-app-endpoints.herokuapp.com', '/api/login',
+          Uri.https('inkoko-app-endpoints.herokuapp.com', '/api/filter/eggs',
               {'q': '{http}'}),
           headers: {
-            "Content-Type": "application/json",
-            'Authorization':
-                'Bearer 35|FvrL5OWYh9qBvIW8niZVcpMERViz6ZQ2Fqcu9b2k',
+            "Accept": "application/json",
+            "Authorization": "Bearer $token",
           },
           body: ({
             "title": _fEggsDetails.title,
@@ -276,7 +290,7 @@ class _GeneralEggsState extends State<GeneralEggs> {
                           return null;
                         },
                         onFieldSubmitted: (_) {
-                          filiteredEggsButton_handler();
+                          filiteredEggsButton_handler(token);
                         },
                         onSaved: (value) {
                           _fEggsDetails = FiliteredEggsModel(
@@ -292,7 +306,9 @@ class _GeneralEggsState extends State<GeneralEggs> {
                   ),
                   SizedBox(height: 20),
                   GestureDetector(
-                    onTap: filiteredEggsButton_handler,
+                    onTap: () {
+                      filiteredEggsButton_handler(token);
+                    },
                     child: Container(
                       width: MediaQuery.of(context).size.width / 1.5,
                       height: 60,

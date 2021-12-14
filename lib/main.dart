@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inkoko_app/screens/farmer%20pages/Homepage_farmer.dart';
 import 'package:inkoko_app/screens/login_as.dart';
 
 void main() {
