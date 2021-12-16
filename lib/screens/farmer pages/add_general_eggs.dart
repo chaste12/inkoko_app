@@ -1,4 +1,4 @@
-// import 'dart:convert';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,6 +34,22 @@ class _GeneralEggsState extends State<GeneralEggs> {
       title: "", quantity: "", price: "", mQuantity: "", description: "");
   final _form = GlobalKey<FormState>();
   // ignore: non_constant_identifier_names
+
+  // Future<void> data() async {
+  //   // Await the http get response, then decode the json-formatted response.
+  //   var response = await http.get(
+  //     Uri.https('inkoko-app-endpoints.herokuapp.com', '/api/filter/eggs',
+  //         {'q': '{http}'}),
+  //   );
+  //   if (response.statusCode == 200) {
+  //     var data = jsonDecode(response.body) as Map<String, dynamic>;
+
+  //     var title = [data["eggs"]["title"]];
+
+  //     print(title);
+  //   }
+  // }
+
   Future<void> filiteredEggsButton_handler(token) async {
     _form.currentState!.validate();
     _form.currentState!.save();

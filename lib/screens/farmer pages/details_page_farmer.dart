@@ -71,14 +71,14 @@ class _DetailsFarmerState extends State<DetailsFarmer> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Hero(
-                    tag: widget.prod.image,
+                    tag: widget.prod.title,
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 220,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         image: DecorationImage(
-                            image: AssetImage(widget.prod.image),
+                            image: AssetImage(widget.prod.title),
                             fit: BoxFit.cover),
                       ),
                     ),
@@ -90,7 +90,7 @@ class _DetailsFarmerState extends State<DetailsFarmer> {
                       children: [
                         SizedBox(height: 20),
                         Text(
-                          widget.prod.productName,
+                          widget.prod.availableQuantity,
                           style: TextStyle(
                             color: Colors.grey[800],
                             fontWeight: FontWeight.bold,
@@ -121,7 +121,7 @@ class _DetailsFarmerState extends State<DetailsFarmer> {
                         ),
                         SizedBox(height: 20),
                         Text(
-                          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio totam aliquam rerum, nam accusamus veritatis cum iusto consectetur voluptas, debitis pariatur modi, explicabo quia porro laudantium vitae ea non fugiat.",
+                          widget.prod.description,
                           style: TextStyle(
                             color: Colors.grey[800],
                             fontWeight: FontWeight.normal,
@@ -142,7 +142,7 @@ class _DetailsFarmerState extends State<DetailsFarmer> {
                                 ),
                               ),
                               Text(
-                                "2600 Rwf",
+                                widget.prod.price,
                                 style: TextStyle(
                                   color: Colors.grey[800],
                                   fontWeight: FontWeight.bold,

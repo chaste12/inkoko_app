@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/components.dart';
+import 'package:inkoko_app/components/display_data.dart';
 import 'package:inkoko_app/screens/customer%20pages/checkout_page.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -52,7 +53,7 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
         ),
         child: Container(
-          margin: EdgeInsets.only(top: 40),
+          margin: EdgeInsets.only(top: 30),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
@@ -72,14 +73,14 @@ class _DetailsPageState extends State<DetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Hero(
-                    tag: widget.prod.image,
+                    tag: widget.prod.title,
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 220,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         image: DecorationImage(
-                            image: AssetImage(widget.prod.image),
+                            image: AssetImage(widget.prod.title),
                             fit: BoxFit.cover),
                       ),
                     ),
@@ -91,7 +92,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       children: [
                         SizedBox(height: 20),
                         Text(
-                          widget.prod.productName,
+                          widget.prod.availableQuantity,
                           style: TextStyle(
                             color: Colors.grey[800],
                             fontWeight: FontWeight.bold,
@@ -122,7 +123,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         ),
                         SizedBox(height: 20),
                         Text(
-                          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio totam aliquam rerum, nam accusamus veritatis cum iusto consectetur voluptas, debitis pariatur modi, explicabo quia porro laudantium vitae ea non fugiat.",
+                          widget.prod.description,
                           style: TextStyle(
                             color: Colors.grey[800],
                             fontWeight: FontWeight.normal,
@@ -185,7 +186,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               ),
                             ),
                             Text(
-                              "2600 Rwf",
+                              widget.prod.price,
                               style: TextStyle(
                                 color: Colors.grey[800],
                                 fontWeight: FontWeight.bold,
@@ -269,7 +270,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               ),
                             ),
                             Text(
-                              "2600 Rwf",
+                              widget.prod.price,
                               style: TextStyle(
                                 color: Colors.grey[800],
                                 fontWeight: FontWeight.bold,

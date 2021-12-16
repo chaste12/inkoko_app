@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/components.dart';
+import 'package:inkoko_app/components/display_data.dart';
 import 'package:inkoko_app/screens/customer%20pages/categories.dart';
 import 'package:inkoko_app/screens/customer%20pages/customer.dart';
 import 'package:inkoko_app/screens/customer%20pages/profile_page.dart';
+import 'package:http/http.dart' as http;
 
 class CustomerPages extends StatefulWidget {
   const CustomerPages({Key? key}) : super(key: key);

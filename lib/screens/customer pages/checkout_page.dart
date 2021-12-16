@@ -154,6 +154,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
+                  height: 300,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(40),
@@ -161,101 +162,30 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10.0, vertical: 20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 10.0),
-                          child: Text(
-                            "Payment",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
                         Container(
-                          width: MediaQuery.of(context).size.width / 1.1,
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          height: 100,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: Colors.grey[300],
-                          ),
-                          // ignore: prefer_const_constructors
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: const TextField(
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white,
-                              ),
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Enter Name on card",
-                                hintStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/Former_Visa_(company)_logo.svg.png"),
+                                fit: BoxFit.contain),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 1.1,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              color: Colors.grey[300],
-                            ),
-                            // ignore: prefer_const_constructors
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: const TextField(
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.white,
-                                ),
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Enter card number",
-                                  hintStyle: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        SizedBox(width: 8),
                         Container(
-                          width: MediaQuery.of(context).size.width / 1.1,
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          height: 300,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: Colors.grey[300],
-                          ),
-                          // ignore: prefer_const_constructors
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: const TextField(
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey,
-                              ),
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Enter expire date",
-                                hintStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ),
-                          ),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30),
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/MTN-mobile-money.jpg"))),
                         ),
                       ],
                     ),

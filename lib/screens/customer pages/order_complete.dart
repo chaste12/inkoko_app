@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/screens/customer%20pages/customer.dart';
+import 'package:inkoko_app/screens/customer%20pages/homepage_customer.dart.dart';
 
 class OrderComplete extends StatelessWidget {
   const OrderComplete({Key? key}) : super(key: key);
@@ -9,6 +10,30 @@ class OrderComplete extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: SvgPicture.asset("assets/icons/primary/chevron-left.svg",
+              color: Colors.grey[800], width: 30),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        title: Image.asset(
+          "assets/images/logo.png",
+          width: 60,
+        ),
+        actions: [
+          SvgPicture.asset(
+            "assets/icons/primary/search.svg",
+            color: Colors.red,
+            width: 30,
+          ),
+          SizedBox(width: 10)
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
         child: SingleChildScrollView(
@@ -55,7 +80,7 @@ class OrderComplete extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomepageCustomer()));
+                                builder: (context) => CustomerPages()));
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,

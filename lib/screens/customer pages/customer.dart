@@ -96,14 +96,14 @@ class _HomepageCustomerState extends State<HomepageCustomer> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Hero(
-                            tag: product[index].image,
+                            tag: product[index].title,
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               height: 120,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 image: DecorationImage(
-                                    image: AssetImage(product[index].image),
+                                    image: AssetImage(product[index].title),
                                     fit: BoxFit.cover),
                               ),
                             ),
@@ -115,7 +115,7 @@ class _HomepageCustomerState extends State<HomepageCustomer> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  product[index].productName,
+                                  product[index].availableQuantity,
                                   style: TextStyle(
                                     color: Colors.grey[800],
                                     fontWeight: FontWeight.bold,
@@ -123,7 +123,7 @@ class _HomepageCustomerState extends State<HomepageCustomer> {
                                   ),
                                 ),
                                 Text(
-                                  product[index].amount,
+                                  product[index].price,
                                   style: TextStyle(
                                     color: Colors.red,
                                     fontWeight: FontWeight.w500,
@@ -136,7 +136,7 @@ class _HomepageCustomerState extends State<HomepageCustomer> {
                                     color: Colors.red,
                                   ),
                                   Text(
-                                    product[index].companyName,
+                                    product[index].minimumQuantity,
                                     style: TextStyle(
                                       color: Colors.grey[800],
                                       fontWeight: FontWeight.w500,
