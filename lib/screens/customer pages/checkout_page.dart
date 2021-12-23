@@ -161,7 +161,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 20.0),
+                        horizontal: 10.0, vertical: 5.0),
                     child: Row(
                       children: [
                         Container(

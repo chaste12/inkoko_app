@@ -43,50 +43,12 @@ class Products {
       required this.minimumQuantity,
       required this.description});
 
-  // factory Products.fromJson(Map<String, dynamic> map) {
-  //   return Products(
-  //       title: map['title'],
-  //       availableQuantity: map['available_quantity'],
-  //       price: map['price'],
-  //       minimumQuantity: map['minimum_quantity'],
-  //       description: map['comment']);
-  // }
+  factory Products.fromJson(Map<String, dynamic> json) {
+    return Products(
+        title: json['title'],
+        availableQuantity: json['available_quantity'],
+        price: json['price'],
+        minimumQuantity: json['minimum_quantity'],
+        description: json['comment']);
+  }
 }
-
-final product = [
-  Products(
-      title: "assets/images/3.jpg",
-      availableQuantity: "Eggs",
-      price: "1400",
-      minimumQuantity: "Fablab Eggs",
-      description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam debitis assumenda aliquid sit natus nam quaerat incidunt quas neque aut accusantium optio perferendis, possimus praesentium molestiae officia saepe temporibus enim!.'),
-  Products(
-      title: "assets/images/istockphoto-157375734-170667a.jpg",
-      availableQuantity: "Chicks",
-      price: "3400",
-      minimumQuantity: "Ella farmers",
-      description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam debitis assumenda aliquid sit natus nam quaerat incidunt quas neque aut accusantium optio perferendis, possimus praesentium molestiae officia saepe temporibus enim!.'),
-  Products(
-      title: "assets/images/katherine-chase-BzF1XBy5xOc-unsplash.jpg",
-      availableQuantity: "Eggs",
-      price: "5400",
-      minimumQuantity: "Good Eggs",
-      description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam debitis assumenda aliquid sit natus nam quaerat incidunt quas neque aut accusantium optio perferendis, possimus praesentium molestiae officia saepe temporibus enim!.'),
-  Products(
-      title: "assets/images/obie-fernandez-KMDXqrESUuw-unsplash.jpg",
-      availableQuantity: "Chickens",
-      price: "1400",
-      minimumQuantity: "Aquila Farmers",
-      description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam debitis assumenda aliquid sit natus nam quaerat incidunt quas neque aut accusantium optio perferendis, possimus praesentium molestiae officia saepe temporibus enim!.'),
-  Products(
-      title: "assets/images/jk-sloan-9zLa37VNL38-unsplash.jpg",
-      availableQuantity: "Chicken meat",
-      price: "2800",
-      minimumQuantity: "Sera butchery",
-      description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam debitis assumenda aliquid sit natus nam quaerat incidunt quas neque aut accusantium optio perferendis, possimus praesentium molestiae officia saepe temporibus enim!.'),
-];

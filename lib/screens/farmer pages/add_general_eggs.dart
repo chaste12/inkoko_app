@@ -35,18 +35,20 @@ class _GeneralEggsState extends State<GeneralEggs> {
   final _form = GlobalKey<FormState>();
   // ignore: non_constant_identifier_names
 
-  // Future<void> data() async {
+  // Future<void data() async {
   //   // Await the http get response, then decode the json-formatted response.
-  //   var response = await http.get(
-  //     Uri.https('inkoko-app-endpoints.herokuapp.com', '/api/filter/eggs',
-  //         {'q': '{http}'}),
-  //   );
+  //   final response = await http.get(
+  //       Uri.https('inkoko-app-endpoints.herokuapp.com', '/api/filter/eggs',
+  //           {'q': '{http}'}),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json',
+  //       });
+
+  //       var eggs = jsonDecode(response.body);
   //   if (response.statusCode == 200) {
-  //     var data = jsonDecode(response.body) as Map<String, dynamic>;
+  //     print(eggs);
 
-  //     var title = [data["eggs"]["title"]];
-
-  //     print(title);
   //   }
   // }
 

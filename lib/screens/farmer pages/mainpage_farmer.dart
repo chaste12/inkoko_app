@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:inkoko_app/components/components.dart';
 import 'package:inkoko_app/screens/farmer%20pages/add_general_eggs.dart';
 import 'package:inkoko_app/screens/farmer%20pages/details_page_farmer.dart';
+import 'package:http/http.dart' as http;
 
 class HomepageFarmer extends StatefulWidget {
   const HomepageFarmer({Key? key}) : super(key: key);
@@ -11,6 +14,29 @@ class HomepageFarmer extends StatefulWidget {
 }
 
 class _HomepageFarmerState extends State<HomepageFarmer> {
+  Future<List<Products>> data() async {
+    // Await the http get response, then decode the json-formatted response.
+    final response = await http.get(
+      Uri.https('inkoko-app-endpoints.herokuapp.com', '/api/filter/eggs',
+          {'q': '{http}'}),
+    );
+    if (response.statusCode == 200) {
+      List product = json.decode(response.body);
+
+      return product.map((product) => Products.fromJson(product)).toList();
+    } else {
+      throw Exception('Unexpected error occured!');
+    }
+  }
+
+  late Future<List<Products>> futureData;
+
+  @override
+  void initState() {
+    super.initState();
+    futureData = data();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,115 +193,126 @@ class _HomepageFarmerState extends State<HomepageFarmer> {
                         ],
                       ),
                     ),
-                    GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 200,
-                        childAspectRatio: (200 / 265),
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                      ),
-                      itemCount: product.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        DetailsFarmer(prod: product[index])));
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 2.5,
-                            height: 70,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xFFE0E0E0),
-                                  spreadRadius: 1.2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 0),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Hero(
-                                  tag: product[index].title,
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 120,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      image: DecorationImage(
-                                          image:
-                                              AssetImage(product[index].title),
-                                          fit: BoxFit.cover),
+                    FutureBuilder(
+                      future: futureData,
+                      builder: (context, snapshot) {
+                        List<Products>? product =
+                            snapshot.data as List<Products>?;
+                        return GridView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: (200 / 265),
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemCount: product!.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailsFarmer(
+                                            prod: product[index])));
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 2.5,
+                                height: 70,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0xFFE0E0E0),
+                                      spreadRadius: 1.2,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 0),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        product[index].availableQuantity,
-                                        style: TextStyle(
-                                          color: Colors.grey[800],
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Hero(
+                                      tag: "image",
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 120,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/katherine-chase-BzF1XBy5xOc-unsplash.jpg"),
+                                              fit: BoxFit.cover),
                                         ),
                                       ),
-                                      Text(
-                                        product[index].price,
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10.0),
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            color: Colors.red,
-                                            borderRadius:
-                                                BorderRadius.circular(30),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            product[index].availableQuantity,
+                                            style: TextStyle(
+                                              color: Colors.grey[800],
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
                                           ),
-                                          child: Center(
-                                            child: Text(
-                                              "Details",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
+                                          Text(
+                                            product[index].price,
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10.0),
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "Details",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     )
                   ]),
             ),
