@@ -17,6 +17,7 @@ class HomepageCustomer extends StatefulWidget {
 }
 
 class _HomepageCustomerState extends State<HomepageCustomer> {
+  final allProducts = true;
   Future<List<Products>> data() async {
     // Await the http get response, then decode the json-formatted response.
     final response = await http.get(
@@ -62,163 +63,182 @@ class _HomepageCustomerState extends State<HomepageCustomer> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               ExploreCards(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
+              Visibility(
+                visible: allProducts,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "All products",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "All products",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Container(
+                            height: 6,
+                            width: 55,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Container(
-                      height: 6,
-                      width: 55,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              FutureBuilder<List<Products>>(
-                  future: data(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List<Products>? product = snapshot.data;
-                      return GridView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          childAspectRatio: (200 / 290),
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemCount: product!.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          DetailsPage(prod: product[index])));
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 2.5,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xFFE0E0E0),
-                                    spreadRadius: 1.2,
-                                    blurRadius: 4,
-                                    offset: Offset(0, 0),
-                                  ),
-                                ],
+                    FutureBuilder<List<Products>>(
+                        future: data(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            List<Products>? product = snapshot.data;
+                            return GridView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 200,
+                                childAspectRatio: (200 / 290),
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Hero(
-                                    tag: "image",
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 120,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/images/katherine-chase-BzF1XBy5xOc-unsplash.jpg"),
-                                            fit: BoxFit.cover),
-                                      ),
+                              itemCount: product!.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DetailsPage(
+                                                prod: product[index])));
+                                  },
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(30),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xFFE0E0E0),
+                                          spreadRadius: 1.2,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 0),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10.0),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          product[index].availableQuantity,
-                                          style: TextStyle(
-                                            color: Colors.grey[800],
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                        Text(
-                                          product[index].price,
-                                          style: TextStyle(
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                        Row(children: [
-                                          SvgPicture.asset(
-                                            "assets/icons/primary/briefcase.svg",
-                                            color: Colors.red,
-                                          ),
-                                          Text(
-                                            product[index].minimumQuantity,
-                                            style: TextStyle(
-                                              color: Colors.grey[800],
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                        ]),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 10.0),
+                                        Hero(
+                                          tag: product[index].id.toString(),
                                           child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 20),
                                             width: MediaQuery.of(context)
                                                 .size
                                                 .width,
-                                            height: 30,
+                                            height: 120,
                                             decoration: BoxDecoration(
-                                              color: Colors.red,
                                               borderRadius:
                                                   BorderRadius.circular(30),
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      "assets/images/katherine-chase-BzF1XBy5xOc-unsplash.jpg"),
+                                                  fit: BoxFit.cover),
                                             ),
-                                            child: Center(
-                                              child: Text(
-                                                "Order now",
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                product[index].title,
                                                 style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: Colors.grey[800],
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 18,
                                                 ),
                                               ),
-                                            ),
+                                              Text(
+                                                product[index].price,
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                              Row(children: [
+                                                SvgPicture.asset(
+                                                  "assets/icons/primary/briefcase.svg",
+                                                  color: Colors.red,
+                                                ),
+                                                Text(
+                                                  product[index]
+                                                      .minimumQuantity,
+                                                  style: TextStyle(
+                                                    color: Colors.grey[800],
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ]),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10.0),
+                                                child: Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  height: 30,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.red,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "Order now",
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    return CircularProgressIndicator();
-                  })
+                            );
+                          }
+                          return Center(child: CircularProgressIndicator());
+                        })
+                  ],
+                ),
+              ),
             ]),
           ),
         ),

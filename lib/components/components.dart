@@ -30,6 +30,7 @@ final cat = [
 ];
 
 class Products {
+  int id;
   String title;
   String availableQuantity;
   String price;
@@ -37,7 +38,8 @@ class Products {
   String description;
 
   Products(
-      {required this.title,
+      {required this.id,
+      required this.title,
       required this.availableQuantity,
       required this.price,
       required this.minimumQuantity,
@@ -45,6 +47,7 @@ class Products {
 
   factory Products.fromJson(Map<String, dynamic> json) {
     return Products(
+        id: json['id'],
         title: json['title'],
         availableQuantity: json['available_quantity'],
         price: json['price'],

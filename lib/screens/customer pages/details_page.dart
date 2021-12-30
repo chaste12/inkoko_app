@@ -73,7 +73,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Hero(
-                    tag: "image",
+                    tag: widget.prod.id.toString(),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 220,

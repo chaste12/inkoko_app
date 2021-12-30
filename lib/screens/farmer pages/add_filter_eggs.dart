@@ -7,14 +7,14 @@ import 'package:http/http.dart' as http;
 import 'package:inkoko_app/screens/farmer%20pages/Homepage_farmer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GeneralEggs extends StatefulWidget {
-  const GeneralEggs({Key? key}) : super(key: key);
+class FilterEggs extends StatefulWidget {
+  const FilterEggs({Key? key}) : super(key: key);
 
   @override
-  _GeneralEggsState createState() => _GeneralEggsState();
+  _FilterEggsState createState() => _FilterEggsState();
 }
 
-class _GeneralEggsState extends State<GeneralEggs> {
+class _FilterEggsState extends State<FilterEggs> {
   String token = '';
 
   @override
@@ -29,8 +29,7 @@ class _GeneralEggsState extends State<GeneralEggs> {
     });
   }
 
-  var visible = true;
-  var visible2 = false;
+  var visible = false;
   var _fEggsDetails = const FiliteredEggsModel(
       title: "", quantity: "", price: "", mQuantity: "", description: "");
   final _form = GlobalKey<FormState>();
@@ -58,8 +57,7 @@ class _GeneralEggsState extends State<GeneralEggs> {
     _form.currentState!.save();
 
     setState(() {
-      visible = false;
-      visible2 = true;
+      visible = true;
     });
     if (_fEggsDetails.title != '' &&
         _fEggsDetails.quantity != '' &&
@@ -67,7 +65,7 @@ class _GeneralEggsState extends State<GeneralEggs> {
         _fEggsDetails.mQuantity != '' &&
         _fEggsDetails.description != '') {
       var response = await http.post(
-          Uri.https('inkoko-app-endpoints.herokuapp.com', '/api/filter/eggs',
+          Uri.https('inkoko-app-endpoints.herokuapp.com', '/api/general/eggs/',
               {'q': '{http}'}),
           headers: {
             "Accept": "application/json",
@@ -337,49 +335,24 @@ class _GeneralEggsState extends State<GeneralEggs> {
                         color: Colors.red,
                       ),
                       child: Center(
-                          child: Column(
-                        children: [
-                          Visibility(
-                            visible: visible,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.red,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Submit",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
+                        child: Text(
+                          "Submit",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
                           ),
-                          Visibility(
-                            visible: visible2,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.red[100],
-                              ),
-                              child: Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(height: 20),
+                  Visibility(
+                      visible: visible,
+                      child: Container(
+                          margin: EdgeInsets.only(bottom: 30),
+                          child: CircularProgressIndicator())),
                 ],
               ),
             ),

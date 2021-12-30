@@ -17,7 +17,8 @@ class LoginCustomer extends StatefulWidget {
 }
 
 class _LoginCustomerState extends State<LoginCustomer> {
-  var visible = false;
+  var visible = true;
+  var visible2 = false;
   var _loginDetails = const LoginModel(email: "", password: "");
   final _form = GlobalKey<FormState>();
   // ignore: non_constant_identifier_names
@@ -26,7 +27,8 @@ class _LoginCustomerState extends State<LoginCustomer> {
     _form.currentState!.save();
 
     setState(() {
-      visible = true;
+      visible = false;
+      visible2 = true;
     });
     if (_loginDetails.email != '' && _loginDetails.password != '') {
       var response = await http.post(
@@ -38,7 +40,8 @@ class _LoginCustomerState extends State<LoginCustomer> {
           }));
       if (response.statusCode == 200) {
         setState(() {
-          visible = false;
+          visible = true;
+          visible2 = false;
         });
         var user = jsonDecode(response.body);
         if (user["token"] != '' || user["token"] != null) {
@@ -177,27 +180,49 @@ class _LoginCustomerState extends State<LoginCustomer> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: GestureDetector(
-                          onTap: loginButton_handler,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.red,
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Login",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+                            onTap: loginButton_handler,
+                            child: Column(
+                              children: [
+                                Visibility(
+                                  visible: visible,
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.5,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Colors.red,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Login",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
+                                Visibility(
+                                  visible: visible2,
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.5,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Colors.red[100],
+                                    ),
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
                       ),
                       Text(
                         "Forgot your password?",
@@ -208,11 +233,6 @@ class _LoginCustomerState extends State<LoginCustomer> {
                           fontWeight: FontWeight.normal,
                         ),
                       ),
-                      Visibility(
-                          visible: visible,
-                          child: Container(
-                              margin: EdgeInsets.only(bottom: 30),
-                              child: CircularProgressIndicator())),
                     ]),
               ),
             ),

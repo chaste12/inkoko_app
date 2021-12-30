@@ -18,7 +18,8 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  var visible = false;
+  var visible = true;
+  var visible2 = false;
   var _signupDetails = const SignupModel(
       name: "", email: "", role: "", password: "", passwordConfirmation: "");
   final _form = GlobalKey<FormState>();
@@ -28,7 +29,8 @@ class _SignupState extends State<Signup> {
     _form.currentState!.save();
 
     setState(() {
-      visible = true;
+      visible = false;
+      visible2 = true;
     });
     if (_signupDetails.password == _signupDetails.passwordConfirmation) {
       var response = await http.post(
@@ -43,6 +45,7 @@ class _SignupState extends State<Signup> {
           }));
       if (response.statusCode == 200) {
         setState(() {
+          visible = true;
           visible = false;
         });
         Navigator.push(
@@ -261,33 +264,50 @@ class _SignupState extends State<Signup> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: GestureDetector(
-                          onTap: signupButton_handler,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.red,
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Sign up",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+                            onTap: signupButton_handler,
+                            child: Column(
+                              children: [
+                                Visibility(
+                                  visible: visible,
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.5,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Colors.red,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Sign up",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
+                                Visibility(
+                                  visible: visible2,
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.5,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Colors.red[100],
+                                    ),
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
                       ),
-                      Visibility(
-                          visible: visible,
-                          child: Container(
-                              margin: EdgeInsets.only(bottom: 30),
-                              child: CircularProgressIndicator())),
                     ]),
               ),
             ),
