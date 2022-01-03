@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/components.dart';
-import 'package:inkoko_app/components/display_data.dart';
 import 'package:inkoko_app/screens/customer%20pages/checkout_page.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -14,7 +13,6 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  int number = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +91,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       children: [
                         SizedBox(height: 20),
                         Text(
-                          widget.prod.availableQuantity,
+                          widget.prod.title,
                           style: TextStyle(
                             color: Colors.grey[800],
                             fontWeight: FontWeight.bold,
@@ -131,19 +129,20 @@ class _DetailsPageState extends State<DetailsPage> {
                             fontSize: 14,
                           ),
                         ),
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
+                          child: Center(
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      number--;
+                                      widget.prod.minimumQuantity--;
                                     });
                                   },
                                   child: SvgPicture.asset(
-                                    "assets/icons/primary/remove.svg",
+                                    "assets/icons/primary/minus-circle.svg",
                                     color: Colors.red,
                                     width: 40,
                                   ),
@@ -152,7 +151,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20.0),
                                   child: Text(
-                                    number.toString(),
+                                    widget.prod.minimumQuantity.toString(),
                                     style: TextStyle(
                                         color: Colors.grey[800],
                                         fontSize: 35,
@@ -162,11 +161,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      number++;
+                                      widget.prod.minimumQuantity++;
                                     });
                                   },
                                   child: SvgPicture.asset(
-                                    "assets/icons/primary/add.svg",
+                                    "assets/icons/primary/plus-circle.svg",
                                     color: Colors.red,
                                     width: 40,
                                   ),
@@ -198,7 +197,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ),
                                     ),
                                     Text(
-                                      widget.prod.price,
+                                      widget.prod.price.toString(),
                                       style: TextStyle(
                                         color: Colors.grey[800],
                                         fontWeight: FontWeight.bold,
@@ -286,7 +285,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ),
                                     ),
                                     Text(
-                                      widget.prod.price,
+                                      widget.prod.price.toString() + "  Rwf",
                                       style: TextStyle(
                                         color: Colors.grey[800],
                                         fontWeight: FontWeight.bold,
