@@ -5,20 +5,22 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/components.dart';
+import 'package:inkoko_app/screens/customer%20pages/checkout_page.dart';
 import 'package:inkoko_app/screens/customer%20pages/details_page.dart';
 import 'package:inkoko_app/screens/customer%20pages/explore_cards.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomepageCustomer extends StatefulWidget {
-  const HomepageCustomer({
+class CartPage extends StatefulWidget {
+  const CartPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<HomepageCustomer> createState() => _HomepageCustomerState();
+  State<CartPage> createState() => _CartPageState();
 }
 
-class _HomepageCustomerState extends State<HomepageCustomer> {
+class _CartPageState extends State<CartPage> {
   Future<List<Products>> data() async {
     // Await the http get response, then decode the json-formatted response.
     final response = await http.get(
@@ -31,7 +33,22 @@ class _HomepageCustomerState extends State<HomepageCustomer> {
     if (response.statusCode == 200) {
       List product = json.decode(response.body)["eggs"];
 
-      return product.map((product) => Products.fromJson(product)).toList();
+      getCartId() async {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+
+        int? cartIdOne = pref.getInt("cartId");
+
+        return cartIdOne;
+      }
+
+      int cartId = (await getCartId() ?? "") as int;
+
+      print(cartId);
+
+      return product
+          .where((element) => element["id"] == cartId)
+          .map((product) => Products.fromJson(product))
+          .toList();
     } else {
       throw Exception('Unexpected error occured!');
     }
@@ -40,15 +57,30 @@ class _HomepageCustomerState extends State<HomepageCustomer> {
   late Future<List<Products>> futureData;
 
   @override
-  void initState() {
-    super.initState();
-    futureData = data();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: SvgPicture.asset(
+              "assets/icons/primary/chevron-left.svg",
+              color: Colors.grey[800],
+            )),
+        title: Text(
+          "Cart",
+          style: TextStyle(
+            color: Colors.grey[800],
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -63,34 +95,9 @@ class _HomepageCustomerState extends State<HomepageCustomer> {
           child: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              ExploreCards(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "All products",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Container(
-                          height: 6,
-                          width: 55,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   FutureBuilder<List<Products>>(
                       future: data(),
                       builder: (context, snapshot) {
@@ -213,7 +220,7 @@ class _HomepageCustomerState extends State<HomepageCustomer> {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    "Order now",
+                                                    "Edit order",
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
@@ -235,7 +242,39 @@ class _HomepageCustomerState extends State<HomepageCustomer> {
                           );
                         }
                         return Center(child: CircularProgressIndicator());
-                      })
+                      }),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CheckoutPage()));
+                      },
+                      child: Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 1.2,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.red,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Proceed to checkout ->",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ]),

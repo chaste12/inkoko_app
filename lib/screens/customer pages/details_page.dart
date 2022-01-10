@@ -2,17 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/components.dart';
 import 'package:inkoko_app/screens/customer%20pages/checkout_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailsPage extends StatefulWidget {
   final Products prod;
 
-  const DetailsPage({Key? key, required this.prod}) : super(key: key);
+  const DetailsPage({Key? key, required this.prod, required this.onProductAdd})
+      : super(key: key);
+
+  final VoidCallback onProductAdd;
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  var visible = true;
+  var visible2 = false;
+
+  dynamic _save() async {
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    prefs.setInt('cartId', widget.prod.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -197,7 +210,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ),
                                     ),
                                     Text(
-                                      widget.prod.price.toString(),
+                                      widget.prod.price,
                                       style: TextStyle(
                                         color: Colors.grey[800],
                                         fontWeight: FontWeight.bold,
@@ -299,37 +312,87 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CheckoutPage()));
-                            },
-                            child: Center(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width / 1.2,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: Colors.red,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Checkout",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
+                            padding: const EdgeInsets.symmetric(vertical: 30.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                _save();
+                                setState(() {
+                                  visible = false;
+                                  visible2 = true;
+                                });
+                              },
+                              child: Column(
+                                children: [
+                                  Visibility(
+                                    visible: visible,
+                                    child: Center(
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.5,
+                                        height: 70,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: Colors.red,
+                                        ),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 50.0),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "Add to bag",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 24,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                SvgPicture.asset(
+                                                  "assets/icons/primary/shopping-bag.svg",
+                                                  color: Colors.white,
+                                                  width: 30,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  Visibility(
+                                    visible: visible2,
+                                    child: Center(
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.5,
+                                        height: 70,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: Colors.red[100],
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "Added to bag",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                        ),
+                            )),
                       ],
                     ),
                   ),

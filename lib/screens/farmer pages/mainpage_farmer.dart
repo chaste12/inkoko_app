@@ -171,7 +171,7 @@ class _HomepageFarmerState extends State<HomepageFarmer> {
                                           ),
                                         ),
                                         Text(
-                                          product[index].price,
+                                          product[index].price.toString(),
                                           style: TextStyle(
                                             color: Colors.red,
                                             fontWeight: FontWeight.w500,

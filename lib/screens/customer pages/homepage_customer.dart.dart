@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inkoko_app/components/components.dart';
 import 'package:inkoko_app/components/display_data.dart';
+import 'package:inkoko_app/screens/customer%20pages/cart_page.dart';
 import 'package:inkoko_app/screens/customer%20pages/categories.dart';
+import 'package:inkoko_app/screens/customer%20pages/checkout_page.dart';
 import 'package:inkoko_app/screens/customer%20pages/customer.dart';
 import 'package:inkoko_app/screens/customer%20pages/profile_page.dart';
 import 'package:http/http.dart' as http;
@@ -45,10 +47,16 @@ class _CustomerPagesState extends State<CustomerPages> {
           width: 60,
         ),
         actions: [
-          SvgPicture.asset(
-            "assets/icons/primary/search.svg",
-            color: Colors.red,
-            width: 30,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => CartPage()));
+            },
+            child: SvgPicture.asset(
+              "assets/icons/primary/shopping-bag.svg",
+              color: Colors.grey[700],
+              width: 30,
+            ),
           ),
           SizedBox(width: 10)
         ],

@@ -10,6 +10,8 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
+  var card = false;
+  var momo = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,38 +156,245 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 300,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(40),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 5.0),
-                    child: Row(
+                        horizontal: 10.0, vertical: 20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30),
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/Former_Visa_(company)_logo.svg.png"),
-                                fit: BoxFit.contain),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 10.0),
+                          child: Text(
+                            "Payment",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
-                        SizedBox(width: 8),
-                        Container(
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          height: 300,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if (card == false) {
+                                card = true;
+                              } else if (card == true) {
+                                card = false;
+                              } else if (momo == true) {
+                                momo = false;
+                              }
+                            });
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
                               borderRadius: BorderRadius.circular(30),
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/MTN-mobile-money.jpg"))),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 4,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/Former_Visa_(company)_logo.svg.png"),
+                                          fit: BoxFit.cover)),
+                                ),
+                                SizedBox(width: 20),
+                                Text(
+                                  "Visa/Mastercard",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: card,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 20),
+                              Container(
+                                width: MediaQuery.of(context).size.width / 1.1,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey[300],
+                                ),
+                                // ignore: prefer_const_constructors
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0),
+                                  child: const TextField(
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white,
+                                    ),
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "Enter Card number",
+                                      hintStyle: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.1,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    color: Colors.grey[300],
+                                  ),
+                                  // ignore: prefer_const_constructors
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    child: const TextField(
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.white,
+                                      ),
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: "Enter expire date",
+                                        hintStyle: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width / 1.1,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey[300],
+                                ),
+                                // ignore: prefer_const_constructors
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0),
+                                  child: const TextField(
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.grey,
+                                    ),
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "Enter card code",
+                                      hintStyle: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if (momo == false) {
+                                momo = true;
+                              } else if (momo == true) {
+                                momo = false;
+                              } else if (card == true) {
+                                card = false;
+                              }
+                            });
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 4,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/MTN-mobile-money.jpg"),
+                                          fit: BoxFit.cover)),
+                                ),
+                                SizedBox(width: 20),
+                                Text(
+                                  "MTN mobile money",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: momo,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 20),
+                              Container(
+                                width: MediaQuery.of(context).size.width / 1.1,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey[300],
+                                ),
+                                // ignore: prefer_const_constructors
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0),
+                                  child: const TextField(
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white,
+                                    ),
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "Enter Phone number",
+                                      hintStyle: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

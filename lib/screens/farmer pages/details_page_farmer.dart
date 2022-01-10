@@ -142,7 +142,7 @@ class _DetailsFarmerState extends State<DetailsFarmer> {
                                 ),
                               ),
                               Text(
-                                widget.prod.price,
+                                widget.prod.price.toString(),
                                 style: TextStyle(
                                   color: Colors.grey[800],
                                   fontWeight: FontWeight.bold,
